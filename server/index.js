@@ -1,0 +1,44 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const mongoose_1 = __importDefault(require("mongoose"));
+// Cargar variables de entorno desde el archivo .env
+dotenv_1.default.config();
+const mongoUri = process.env.MONGODB_ATLAS_URI;
+if (!mongoUri) {
+    console.error('La URI de MongoDB no está definida en las variables de entorno.');
+    process.exit(1); // Salir con un código de error
+}
+mongoose_1.default
+    .connect(mongoUri)
+    .then(() => console.info('Conectado a la base de datos'))
+    .catch((error) => console.error('No se pudo conectar a la base de datos', error));
+const app = (0, express_1.default)();
+app.post('/login', (req, res) => {
+    // Aquí irá la lógica para manejar la solicitud de inicio de sesión
+});
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+    console.log(`Servidor iniciado en el puerto ${PORT}`);
+});
+// Obtener la URI de conexión a MongoDB desde las variables de entorno
+//const uri = process.env.MONGOBD_ATLAS_URI;
+// Crear un cliente de MongoDB
+//const client = new MongoClient(uri);
+// Función para conectar a la base de datos
+//async function connectToDatabase() {
+/*try {
+    // Conectar al cliente de MongoDB
+    await client.connect();
+    console.log('Conexión a MongoDB exitosa');
+} catch (error) {
+    console.error('Error al conectar a MongoDB:', error);
+}
+}
+
+// Llamar a la función para conectar a la base de datos
+connectToDatabase();*/ 
